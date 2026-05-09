@@ -1,0 +1,647 @@
+{
+	"info": {
+		"_postman_id": "4ee24514-51c2-4bd5-83b2-6e6a18db6ef1",
+		"name": "Azure Cosmos DB - Table API",
+		"description": "Azure Storage REST API (this API also works for Cosmos DB Table PI):  \n[https://docs.microsoft.com/en-us/rest/api/storageservices/table-service-rest-api](https://docs.microsoft.com/en-us/rest/api/storageservices/table-service-rest-api)\n\nFor Authorization see:  \n[https://docs.microsoft.com/en-us/rest/api/storageservices/authorization-for-the-azure-storage-services](https://docs.microsoft.com/en-us/rest/api/storageservices/authorization-for-the-azure-storage-services)\n\nTo Create a Auth in Postman see:  \n[https://blog.jongallant.com/2021/02/azure-rest-apis-postman-2021/](https://blog.jongallant.com/2021/02/azure-rest-apis-postman-2021/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Table",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"TableName\":\"DemoTable\"  \r\n}  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/Tables",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"Tables"
+					]
+				},
+				"description": "StartFragment\n\n[Create Table (REST API) - Azure Storage | Microsoft Docs](https://docs.microsoft.com/en-us/rest/api/storageservices/create-table)\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Entity",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"RowKey\": \"Einstein\",\r\n\t\"PartitionKey\": \"Teachers\",\r\n\t\"Age\": 50,\r\n\t\"FirstName\": \"Albert\",\r\n\t\"Gender\": \"M\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/DemoTable",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"DemoTable"
+					]
+				},
+				"description": "StartFragment\n\n[Insert Entity (REST API) - Azure Storage | Microsoft Docs](https://docs.microsoft.com/en-us/rest/api/storageservices/insert-entity)\n\nEndFragmen"
+			},
+			"response": []
+		},
+		{
+			"name": "Query Entities",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=minimalmetadata",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=nometadata",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/DemoTable(PartitionKey='Teachers',RowKey='Einstein')",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"DemoTable(PartitionKey='Teachers',RowKey='Einstein')"
+					]
+				},
+				"description": "https://docs.microsoft.com/en-us/rest/api/storageservices/query-entities"
+			},
+			"response": []
+		},
+		{
+			"name": "Query Entities Select&Filter",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=minimalmetadata",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=nometadata",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "DataServiceVersion",
+						"value": "3.0;NetFx",
+						"type": "text"
+					},
+					{
+						"key": "MaxDataServiceVersion",
+						"value": "3.0;NetFx",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/DemoTable",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"DemoTable"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "$select",
+							"value": "FirstName,Age",
+							"disabled": true
+						},
+						{
+							"key": "$filter",
+							"value": "FirstName eq 'Albert' and (Age gt 20)",
+							"disabled": true
+						}
+					]
+				},
+				"description": "https://docs.microsoft.com/en-us/rest/api/storageservices/query-entities"
+			},
+			"response": []
+		},
+		{
+			"name": "Insert or Replace Entity",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=minimalmetadata",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=nometadata",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"RowKey\": \"Nadella\",\r\n\t\"PartitionKey\": \"Students\",\r\n\t\"FirstName@odata.type\": \"Edm.String\",\r\n\t\"FirstName\": \"Satya\",\r\n\t\"Age@odata.type\": \"Edm.Int64\",\r\n\t\"Age\": \"18\",\r\n\t\"Grade@odata.type\": \"Edm.Double\",\r\n\t\"Grade\": \"13.1\",\r\n\t\"Gender@odata.type\": \"Edm.String\",\r\n\t\"Gender\": \"M\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/DemoTable(PartitionKey='Students',RowKey='Nadella')",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"DemoTable(PartitionKey='Students',RowKey='Nadella')"
+					]
+				},
+				"description": "https://docs.microsoft.com/en-us/rest/api/storageservices/update-entity2\n\nhttps://docs.microsoft.com/en-us/rest/api/storageservices/insert-or-replace-entity"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Entity",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "if-match",
+						"value": "*",
+						"type": "text"
+					},
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=minimalmetadata",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=nometadata",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/DemoTable(PartitionKey='Students',RowKey='Nadella')",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"DemoTable(PartitionKey='Students',RowKey='Nadella')"
+					]
+				},
+				"description": "https://docs.microsoft.com/en-us/rest/api/storageservices/delete-entity1"
+			},
+			"response": []
+		},
+		{
+			"name": "Query Table",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/Tables",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"Tables"
+					]
+				},
+				"description": "StartFragment\n\n[Query Tables (REST API) - Azure Storage | Microsoft Docs](https://docs.microsoft.com/en-us/rest/api/storageservices/query-tables)\n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Table",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Date",
+						"value": "{{date}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text",
+						"description": "Value defined on Pre-request Script"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=fullmetadata"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{AccountName}}.table.cosmos.azure.com:443/Tables('DemoTable')",
+					"protocol": "https",
+					"host": [
+						"{{AccountName}}",
+						"table",
+						"cosmos",
+						"azure",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"Tables('DemoTable')"
+					]
+				},
+				"description": "StartFragment\n\n[Delete Table (REST API) - Azure Storage | Microsoft Docs](https://docs.microsoft.com/en-us/rest/api/storageservices/delete-table)\n\nEndFragment"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.variables.set(\"date\", new Date().toUTCString());",
+					"pm.request.body ? pm.variables.set(\"content_length\",pm.request.body.toString().length):\"\";",
+					"",
+					"const canonicalResource = \"/\"+pm.variables.get(\"AccountName\") + pm.request.url.getPath();",
+					"console.log (\"canonicalResource = \" + canonicalResource);",
+					"",
+					"// var finalstring = canonicalResource.toString().replace(/'/g,\"%27\"); Not Needed anymore",
+					"var finalstring = canonicalResource;",
+					"console.log (\"finalstring = \" + finalstring);",
+					"",
+					"const signatureRaw = new Date().toUTCString()+\"\\n\"+finalstring;",
+					"console.log (\"signatureRaw = \" + signatureRaw);",
+					"",
+					"const storageKey = CryptoJS.enc.Base64.parse(pm.variables.get(\"PrimaryKey\"));",
+					"",
+					"const signatureBytes = CryptoJS.HmacSHA256(signatureRaw,storageKey);",
+					"",
+					"const signatureEncoded = CryptoJS.enc.Base64.stringify(signatureBytes);",
+					"",
+					"pm.variables.set(\"auth\", `SharedKeyLite ${pm.variables.get(\"AccountName\")}:${signatureEncoded}`);",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"postman.clearEnvironmentVariable(\"date\");",
+					"postman.clearEnvironmentVariable(\"auth\");",
+					"postman.clearEnvironmentVariable(\"content_length\");"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "AccountName",
+			"value": "123",
+			"type": "string"
+		},
+		{
+			"key": "PrimaryKey",
+			"value": "123",
+			"type": "string"
+		}
+	]
+}
